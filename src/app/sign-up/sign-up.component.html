@@ -1,0 +1,152 @@
+<div class="card">
+
+    <div class="card-header text-center">
+       Sign Up Form 
+    </div>
+  
+    <div class="card-body">
+        <form novalidate  (ngSubmit)="save()"  [formGroup]="userForm">
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="firstName"> First Name </label>
+                <div class="col-md-8">
+                    <input class="form-control" id="firstName" type="text"  placeholder="First Name (required)" formControlName="firstName" 
+                           [ngClass]="{ 'is-invalid': ( userForm.controls.firstName.touched || userForm.controls.firstName.dirty) && ! userForm.controls.firstName.valid  }"
+                     />
+                     <span class="invalid-feedback">
+                        <span *ngIf="userForm.controls.firstName.errors?.required">
+                          Please enter your first name.
+                        </span>
+                        <span *ngIf="userForm.controls.firstName.errors?.maxlength">
+                          The first name must be less than 150 characters.
+                        </span>
+                      </span> 
+                  </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="lastName"> Last Name </label>
+                <div class="col-md-8">
+                    <input class="form-control" id="lastName" type="text"  placeholder="Last Name (required)" formControlName="lastName" 
+                           [ngClass]="{ 'is-invalid': ( userForm.controls.lastName.touched || userForm.controls.lastName.dirty) && ! userForm.controls.lastName.valid  }"
+                     />
+                     <span class="invalid-feedback">
+                        <span *ngIf="userForm.controls.lastName.errors?.required">
+                          Please enter your last name.
+                        </span>
+                        <span *ngIf="userForm.controls.lastName.errors?.maxlength">
+                          The last name must be less than 150 characters.
+                        </span>
+                      </span> 
+                  </div>
+            </div>
+
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="emailAddress">Email Address </label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                         id="emailAddress"
+                         type="text"
+                         placeholder="Email Address (required)"
+                         formControlName="emailAddress"
+                         [ngClass]="{'is-invalid': (userForm.controls.emailAddress.touched || userForm.controls.emailAddress.dirty) && ! userForm.controls.emailAddress.valid }"
+                         />
+                  
+                   <span class="invalid-feedback">
+                     <span *ngIf="userForm.controls.emailAddress.errors?.required">
+                      Please enter your adress .
+                    </span> 
+                    <span *ngIf="userForm.controls.emailAddress.errors?.invalid">
+                      The Email Address is invalid . 
+                    </span> 
+                  </span> 
+                </div>
+            </div>
+
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="activityId">Activity </label>
+    
+                <div class="col-md-8">
+                
+                <select required 
+                        id="activityId" 
+                        name="activityId" formControlName="activityId"  class="form-control"
+                        [ngClass]="{'is-invalid': userForm.controls.activityId.touched && userForm.controls.activityId.invalid }"  
+                         >
+                        <option  [value]="item.activityId" *ngFor="let item of activityDTOList" >
+                            {{ item.activityName}}
+                        </option>
+                </select>
+    
+                  <span class="invalid-feedback">
+                    <span *ngIf="userForm.controls.activityId.touched && userForm.controls.activityId.invalid">
+                      Activity is required .
+                    </span>
+                  </span>
+                </div>
+    
+             </div>
+
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="comments">Comments</label>
+                <div class="col-md-8">
+                        <textarea 
+                            rows="4"
+                            id="comments"
+                            name="comments"
+                            name="comments"
+                            class="form-control"
+                            formControlName="comments"
+                            [ngClass]="{'is-invalid': (userForm.controls.comments.touched || userForm.controls.comments.dirty) && ! userForm.controls.comments.valid }"
+                        >
+                    </textarea>
+                  <span class="invalid-feedback">
+                   
+                    <span *ngIf="userForm.controls.comments.errors?.maxlength">
+                      The comments  must be less than 1000 characters.
+                    </span>
+                  </span>
+      
+                </div>
+            </div>
+
+        
+         <div class="form-group row mb-2">
+            <div class="offset-md-2 col-md-4">
+              <button class="btn btn-primary mr-3"
+                      type="submit"
+                      style="width:80px"
+                      [title]="userForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                      [disabled]="!userForm.valid"
+                      *ngIf=" activityDTOList.length > 0 "
+                      >
+                Save
+              </button>
+            </div>
+         </div>
+
+
+         <div class="form-group row mb-2">
+            <div class="offset-md-2 col-md-4">
+             <span class="text-success"> {{ successMessage }} </span>
+             <span class="text-danger"> {{ failedMessage }} </span>
+            </div>
+         </div>
+
+
+        </form>
+    </div>
+ 
+  </div>
+
+
+  <!-- <br>Dirty: {{ userForm.dirty }}
+  <br>Touched: {{ userForm.touched }}
+  <br>Valid: {{ userForm.valid }}
+  <br>Value: {{ userForm.value | json }} -->

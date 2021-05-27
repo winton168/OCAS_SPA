@@ -1,0 +1,112 @@
+<div class="row mt-2">
+
+    <section class="col-3">
+        <ng-container>
+            <h5 class="text-warning ml-1 mt-3 mb-3"> Sort </h5>
+            <select  id="sort"  name="sort"  class="form-control" [(ngModel)]="sortName" (change)="onSortNameChanged()" >
+                <option  [value]="item.sortName" *ngFor="let item of sortArr" >
+                    {{ item.sortDisplayName}}
+                </option>
+                </select>
+                
+            <h5 class="text-warning ml-1 mt-4 mb-3"> Activity </h5>
+            <select  id="activity"  name="activity"  class="form-control" [(ngModel)]="activityId" (change)=" onActivityChanged()">
+                <option  [value]="item.activityId" *ngFor="let item of activityDTOArr" >
+                    {{ item.activityName}}
+                </option>
+            </select>   
+
+            <h5 class="text-warning ml-1 mt-4 mb-3"> PageSize </h5>
+            <select  id="pageSize"  name="pageSize"  class="form-control" [(ngModel)]="pageSize"  (change)="onPageSizeChanged()" >
+                <option  [value]="item.pageSize" *ngFor="let item of pageSizeArr" >
+                    {{ item.pageSizeName}}
+                </option>
+            </select>   
+                
+        </ng-container>
+
+    </section>
+
+
+    <section class="col-9">
+        <div class="d-flex justify-content-between align-items-center pb-2">
+
+            <header>
+                <span *ngIf="totalCount && totalCount > 0 "> Showing
+                    <strong>
+                        {{ (this.pageIndex -1) * this.pageSize + 1  }} -
+                        {{ this.pageIndex * this.pageSize 
+                            > this.totalCount 
+                            ? this.totalCount 
+                            : this.pageIndex * this.pageSize
+                        }}
+                    </strong> of 
+                    <strong>
+                        {{ this.totalCount }} 
+                    </strong>
+                    Results
+                </span>
+
+                <span *ngIf="totalCount === 0"> 
+                    There are <strong>0</strong> results for this filter 
+                </span>
+            </header>
+
+            <div class="form-inline mt-2" *ngIf="userDTOArr" >
+                <input (keyup.enter)="onSearch()"  class="form-control mr-2" #search style="width: 300px" placeholder="Search" 
+                type="text">
+                <button (click)="onSearch()"  class="btn btn-outline-primary my-2">Search</button>
+                <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Email Address </th>
+                    <th> Activity </th>
+                    <th> Comments </th> 
+                </thead>
+                <tbody>
+            
+                    <tr *ngFor="let item of userDTOArr">
+                        <td> {{ item.firstName }}</td>
+                        <td> {{ item.lastName }}</td>
+                        <td> {{ item.emailAddress}}</td>
+                        <td> {{ item.activityName }}</td>
+                        <td> {{ item.comments }}  </td>
+                    </tr> 
+            
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="totalCount > 0 ">
+            <pagination 
+              [boundaryLinks]="true"
+              [totalItems]="this.totalCount"
+              (pageChanged)="onPageChanged($event)"
+              [itemsPerPage]="this.pageSize"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+        </div>
+        
+    </section>
+
+</div>
+
+
+<!-- 
+
+<div>
+  PageSize : {{ pageSize }} <br />
+  Sort: {{ sortName  }} <br />
+  ActivityId: {{ activityId  }} <br />
+  PageIndex: {{ pageIndex  }} <br />
+</div> -->
+
