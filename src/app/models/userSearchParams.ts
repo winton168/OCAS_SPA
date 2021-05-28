@@ -3,4 +3,5 @@ export  class userSearchParams {
     pageSize : number = 10;
     activityId?: number | null;
     sortName: string = "";
+    searchWords: string = "";
 }

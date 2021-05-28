@@ -20,6 +20,7 @@ export class UserListViewComponent implements OnInit {
   totalCount: number = 0;
   sortName : string = "firstNameAsc";
   activityId: number = 0;
+  searchWords: string = "";
 
 
   pageSizeArr: any[] = [
@@ -65,8 +66,7 @@ userDTOArr: userDTO[]  =[];
     userParams.pageIndex = this.pageIndex;
     userParams.pageSize = this.pageSize;
     userParams.sortName = this.sortName;
-
-    console.log(" Page Size: " + this.pageSize);
+    userParams.searchWords = this.searchWords;
 
     if ( this.activityId > 0)
     {
@@ -97,16 +97,25 @@ userDTOArr: userDTO[]  =[];
 
 
   onSearch() {
-    // this.shopParams.search = this.searchTerm.nativeElement.value;
-    // this.shopParams.pageNumber = 1;
-    // this.getProducts();
+   
+      // if ( this.searchWords != "" && this.searchWords != null)
+      // {
+      //   this.pageIndex = 1;
+      //   this.searchUsers();
+      // }
+      
+      this.pageIndex = 1;
+      this.searchUsers();
   }
 
 
   onReset() {
-    // this.searchTerm.nativeElement.value = '';
-    // this.shopParams = new ShopParams();
-    // this.getProducts();
+ 
+    this.searchWords = "";
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.sortName = "firstNameAsc";
+    this.searchUsers();
   }
 
 

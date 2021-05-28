@@ -24,17 +24,6 @@ export class UsersService {
 
     let params = new HttpParams();
 
-    // if ( userParams.activityId > 0 )
-    // {
-    //   params = params.append('activityId', userParams.activityId.toString());
-    // }
-
-    // params = params.append('sort', userParams.sortName);
-    // params = params.append('pageIndex', userParams.pageNumber.toString());
-    // params = params.append('pageSize', userParams.pageSzie.toString());
-
-   
-
       return this.httpClient.post<IPagination>(`${environment.apiRootUrl}/Users/Search`, userParams );
       
 
